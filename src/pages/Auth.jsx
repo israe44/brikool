@@ -122,15 +122,14 @@ export default function Auth({ navigate }) {
       <div className="absolute inset-0 bg-black/10 backdrop-blur-sm" />
 
     
-      <div className="relative min-h-screen flex items-start justify-center px-4 pt-6 pb-8">
-        <div className="w-full max-w-xl">
-         
-          <div className="relative z-10 -translate-y-6 max-h-[92vh] overflow-auto bg-white/90 backdrop-blur-xl border border-white/30 shadow-2xl rounded-2xl p-4 sm:p-5">
+      <div className="relative min-h-screen flex items-start justify-center px-3 pt-4 pb-6">
+          <div className="w-full max-w-lg">
+            <div className="relative z-10 -translate-y-4 max-h-[88vh] overflow-auto bg-white/90 backdrop-blur-xl border border-white/30 shadow-2xl rounded-2xl p-3 sm:p-4">
            
             <div className="mb-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                  <img src="/logo-finder.png" alt="Finderr" className="h-16 sm:h-20 w-auto object-contain" />
+                  <img src="/logo-finder.png" alt="Finderr" className="h-12 sm:h-14 w-auto object-contain" />
                 </div>
 
                 <button
@@ -142,17 +141,17 @@ export default function Auth({ navigate }) {
                 </button>
               </div>
 
-              <h1 className="mt-1 text-xl font-bold text-slate-900">{title}</h1>
-              <p className="mt-1 text-slate-600">{subtitle}</p>
+              <h1 className="mt-1 text-lg font-bold text-slate-900">{title}</h1>
+              <p className="mt-1 text-sm text-slate-600">{subtitle}</p>
             </div>
 
            
-            <div className="grid grid-cols-2 gap-1 p-1 rounded-2xl bg-slate-100 border border-slate-200 mb-4">
+            <div className="grid grid-cols-2 gap-1 p-1 rounded-2xl bg-slate-100 border border-slate-200 mb-3">
               <button
                 type="button"
                 onClick={() => setIsSignup(true)}
                 className={[
-                  "py-2.5 rounded-xl text-sm font-semibold transition",
+                  "py-2 rounded-xl text-sm font-semibold transition",
                   isSignup ? "bg-white shadow text-slate-900" : "text-slate-600 hover:text-slate-900",
                 ].join(" ")}
               >
@@ -162,7 +161,7 @@ export default function Auth({ navigate }) {
                 type="button"
                 onClick={() => setIsSignup(false)}
                 className={[
-                  "py-2.5 rounded-xl text-sm font-semibold transition",
+                  "py-2 rounded-xl text-sm font-semibold transition",
                   !isSignup ? "bg-white shadow text-slate-900" : "text-slate-600 hover:text-slate-900",
                 ].join(" ")}
               >
@@ -179,14 +178,14 @@ export default function Auth({ navigate }) {
                     onChange={(e) => setFirstName(e.target.value)}
                     required
                     placeholder="First name"
-                    className="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-400"
+                    className="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-400"
                   />
                   <input
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                     required
                     placeholder="Last name"
-                    className="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-400"
+                    className="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-400"
                   />
                 </div>
 
@@ -196,7 +195,7 @@ export default function Auth({ navigate }) {
                   required
                   type="email"
                   placeholder="Email address"
-                  className="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-400"
+                  className="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-400"
                 />
 
                 <div className="rounded-2xl border border-slate-200 bg-white px-2 focus-within:ring-4 focus-within:ring-emerald-100 focus-within:border-emerald-400 transition">
@@ -204,7 +203,7 @@ export default function Auth({ navigate }) {
                     defaultCountry="ma"
                     value={phone}
                     onChange={(p) => setPhone(p)}
-                    inputClassName="w-full !border-0 !shadow-none !ring-0 !rounded-2xl !py-2.5 !text-sm"
+                    inputClassName="w-full !border-0 !shadow-none !ring-0 !rounded-2xl !py-2 !text-sm"
                     countrySelectorStyleProps={{
                       buttonClassName:
                         "!h-[42px] !rounded-2xl !border-0 !bg-transparent hover:!bg-slate-50",
@@ -221,7 +220,7 @@ export default function Auth({ navigate }) {
                   required
                   type="password"
                   placeholder="Password"
-                  className="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-400"
+                  className="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2 text-sm outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-400"
                 />
 
                 <label className="flex items-start gap-3 text-sm text-slate-600">
@@ -247,7 +246,7 @@ export default function Auth({ navigate }) {
                 <button
                   disabled={!agree}
                   className={[
-                    "w-full rounded-2xl py-2.5 text-sm font-semibold transition",
+                    "w-full rounded-2xl py-2 text-sm font-semibold transition",
                     agree
                       ? "bg-emerald-600 text-white hover:bg-emerald-700"
                       : "bg-slate-200 text-slate-500 cursor-not-allowed",

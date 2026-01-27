@@ -1,6 +1,7 @@
 // src/components/layout/Navbar.jsx
 const links = [
   { label: "Services", href: "/services" },
+  { label: "Who we serve", href: "/who-we-serve" },
   { label: "Sign up / Log in", href: "/auth" },
 ];
 

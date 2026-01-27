@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import Navbar from "./components/Navbar";
 import { supabase } from "./lib/supabase";
 import Auth from "./pages/Auth";
+import BecomeProvider from "./pages/BecomeProvider";
 
 export default function App() {
   const [path, setPath] = useState(window.location.pathname);
@@ -11,10 +12,17 @@ export default function App() {
     const onPop = () => setPath(window.location.pathname);
     window.addEventListener("popstate", onPop);
 
-    
-    supabase.auth.getSession().then(({ data }) => setSession(data.session));
+    // Get initial session
+    supabase.auth.getSession().then(({ data }) => {
+      setSession(data.session);
+    });
 
-    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => setSession(session));
+    // Listen to auth changes
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setSession(session);
+      }
+    );
 
     return () => {
       window.removeEventListener("popstate", onPop);
@@ -32,26 +40,46 @@ export default function App() {
   return (
     <>
       <Navbar navigate={navigate} path={path} />
+
       <main className="mx-auto max-w-7xl px-6 py-10">
-        {path === "/auth" ? (
-          <Auth
-            navigate={navigate}
-            onGoogle={() =>
-              supabase.auth.signInWithOAuth({ provider: "google", options: { redirectTo: window.location.origin } })
-            }
-            onGithub={() =>
-              supabase.auth.signInWithOAuth({ provider: "github", options: { redirectTo: window.location.origin } })
-            }
-          />
-        ) : session ? (
-          <div style={{ padding: 40 }}>
-            <h2>Logged in </h2>
-            <p>{session.user.email}</p>
-            <button onClick={() => supabase.auth.signOut()}>Sign out</button>
+        {/* AUTH */}
+        {path === "/auth" && (
+          <Auth navigate={navigate} />
+        )}
+
+        {/* BECOME PROVIDER */}
+        {path === "/become-provider" && (
+          <BecomeProvider />
+        )}
+
+        {/* LOGGED IN USER */}
+        {path === "/" && session && (
+          <div className="py-10">
+            <h2 className="text-2xl font-bold text-gray-900">
+              Logged in
+            </h2>
+            <p className="mt-2 text-gray-600">
+              {session.user.email}
+            </p>
+
+            <button
+              onClick={() => supabase.auth.signOut()}
+              className="mt-6 rounded-full bg-gray-900 px-6 py-3 text-white font-semibold hover:bg-gray-800 transition"
+            >
+              Sign out
+            </button>
           </div>
-        ) : (
-          <div>
-            <h1 className="text-2xl font-semibold">Home</h1>
+        )}
+
+        {/* HOME (DEFAULT) */}
+        {path === "/" && !session && (
+          <div className="py-10">
+            <h1 className="text-3xl font-extrabold text-gray-900">
+              Home
+            </h1>
+            <p className="mt-2 text-gray-600">
+              Find trusted local services near you.
+            </p>
           </div>
         )}
       </main>
