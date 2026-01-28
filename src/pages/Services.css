@@ -5,8 +5,8 @@
   --border: rgba(17, 24, 39, 0.12);
   --shadow: 0 16px 40px rgba(0,0,0,0.14);
   --shadow-soft: 0 10px 26px rgba(0,0,0,0.10);
-  --brand: #047857; /* emerald-700 */
-  --radius: 6px;    /* less round = more pro */
+  --brand: #047857;
+  --radius: 6px;
 }
 
 .finderr-services{
@@ -51,7 +51,7 @@
   padding: 24px 16px;
 }
 
-/* SEARCH CARD (more square) */
+/* SEARCH CARD */
 .services-searchCard{
   width: min(980px, 92vw);
   background: rgba(255,255,255,0.96);
@@ -75,12 +75,17 @@
   gap: 10px;
 }
 
+/* smaller search */
+.services-searchRow--small{
+  grid-template-columns: 1fr 96px;
+}
+
 .services-searchRow input{
   width: 100%;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 13px 12px;
-  font-size: 15px;
+  padding: 10px 10px;
+  font-size: 14px;
   outline: none;
   background: #fff;
 }
@@ -95,8 +100,9 @@
   border-radius: var(--radius);
   background: var(--brand);
   color: #fff;
-  font-weight: 700;
+  font-weight: 800;
   cursor: pointer;
+  font-size: 14px;
 }
 
 .services-searchBtn:hover{ filter: brightness(1.05); }
@@ -107,7 +113,7 @@
   font-size: 13px;
 }
 
-/* BODY LAYOUT LIKE HANDY */
+/* BODY */
 .services-body{
   padding: 28px 0 40px;
 }
@@ -115,15 +121,21 @@
 .services-container{
   width: min(1200px, 92vw);
   margin: 0 auto;
-}
-
-.services-container{
   display: grid;
   grid-template-columns: 280px 1fr;
   gap: 26px;
 }
 
-/* LEFT */
+/* LEFT (sticky like Handy) */
+.services-left{
+  position: sticky;
+  top: 96px; /* navbar offset */
+  align-self: start;
+  height: calc(100vh - 120px);
+  overflow: auto;
+  padding-right: 6px;
+}
+
 .services-leftTitle{
   font-size: 34px;
   font-weight: 700;
@@ -164,7 +176,21 @@
   color: rgba(17,24,39,0.85);
 }
 
-/* cards = 3 columns */
+/* SECTION spacing like Handy */
+.services-section{
+  padding-bottom: 34px;
+  margin-bottom: 34px;
+  border-bottom: 1px solid rgba(17,24,39,0.08);
+}
+
+/* Popular grid */
+.services-allGrid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 18px;
+}
+
+/* cards */
 .services-cards{
   display: grid;
   grid-template-columns: repeat(3, minmax(0,1fr));
@@ -187,16 +213,83 @@
   height: 190px;
   background-size: cover;
   background-position: center;
+  position: relative;
 }
 
 .services-cardLabel{
   padding: 12px 12px;
   text-align: center;
-  font-weight: 700;
+  font-weight: 800;
   color: rgba(17,24,39,0.85);
 }
 
-/* lists = 3 columns text */
+/* Card extra features */
+.services-cardBody{
+  padding: 12px;
+}
+
+.services-cardTop{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.services-cardTitle{
+  font-weight: 800;
+  color: rgba(17,24,39,0.92);
+}
+
+.services-cardRating{
+  font-weight: 800;
+  color: rgba(17,24,39,0.75);
+  font-size: 14px;
+}
+
+.services-cardMeta{
+  margin-top: 6px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: rgba(17,24,39,0.65);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.services-cardActions{
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-weight: 800;
+}
+
+.services-ctaLink{
+  color: rgba(17,24,39,0.75);
+}
+
+.services-ctaBtn{
+  background: var(--brand);
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(0,0,0,0.10);
+}
+
+.services-badge{
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(0,0,0,0.10);
+  padding: 6px 10px;
+  font-weight: 800;
+  font-size: 12px;
+  border-radius: var(--radius);
+}
+
+/* lists */
 .services-lists{
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -217,11 +310,18 @@
   padding: 0;
   font-size: 15px;
   color: rgba(17,24,39,0.75);
+  font-weight: 600;
 }
 
 .services-listItem:hover{
   color: rgba(17,24,39,0.95);
   text-decoration: underline;
+}
+
+.services-empty{
+  margin-top: 16px;
+  font-weight: 700;
+  color: rgba(17,24,39,0.70);
 }
 
 /* FOOTER */
@@ -255,12 +355,21 @@
   .services-container{
     grid-template-columns: 1fr;
   }
+  .services-left{
+    position: static;
+    height: auto;
+    overflow: visible;
+    padding-right: 0;
+  }
   .services-leftTitle{
     font-size: 28px;
   }
 }
 
 @media (max-width: 760px){
+  .services-allGrid{
+    grid-template-columns: 1fr;
+  }
   .services-cards{
     grid-template-columns: 1fr;
   }
@@ -271,6 +380,6 @@
     grid-template-columns: 1fr;
   }
   .services-searchBtn{
-    height: 46px;
+    height: 44px;
   }
 }
