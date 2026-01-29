@@ -19,17 +19,15 @@ const CATEGORY_CONTENT = {
     cards: [
       {
         title: "Home Cleaning",
-        image:
-          "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1400&q=80",
+        image: "/cleaning/cleaning-1.png",
         priceFrom: 199,
         duration: "2–3h",
         rating: 4.8,
         badge: "Popular",
       },
       {
-        title: "Office Cleaning",
-        image:
-          "https://images.unsplash.com/photo-1527515637462-daf3f22d63a9?auto=format&fit=crop&w=1400&q=80",
+        title: "Salon cleaning",
+        image: "/cleaning/cleaning-2.png",
         priceFrom: 299,
         duration: "2–4h",
         rating: 4.7,
@@ -37,8 +35,7 @@ const CATEGORY_CONTENT = {
       },
       {
         title: "Deep Cleaning",
-        image:
-          "https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?auto=format&fit=crop&w=1400&q=80",
+        image: "/cleaning/cleaning-3.png",
         priceFrom: 399,
         duration: "4–6h",
         rating: 4.9,
@@ -515,9 +512,11 @@ export default function Services() {
     <div className="finderr-services">
       {/* HERO VIDEO */}
       <section className="services-hero">
-        <video className="services-hero__video" autoPlay muted loop playsInline>
-          <source src="/videos/services-hero.mp4" type="video/mp4" />
-        </video>
+        <div
+          className="services-hero__video"
+          aria-hidden="true"
+          style={{ backgroundImage: `url(servicesbg.png)` }}
+        />
 
         <div className="services-hero__overlay" />
 
