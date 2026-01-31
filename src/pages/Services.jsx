@@ -18,7 +18,7 @@ const CATEGORY_CONTENT = {
     title: "Cleaning",
     cards: [
       {
-        title: "Home Cleaning",
+        image: "/plumbing-1.png",
         image: "/cleaning/cleaning-1.png",
         priceFrom: 199,
         duration: "2–3h",
@@ -26,7 +26,7 @@ const CATEGORY_CONTENT = {
         badge: "Popular",
       },
       {
-        title: "Salon cleaning",
+        image: "/plumbing-2.png",
         image: "/cleaning/cleaning-2.png",
         priceFrom: 299,
         duration: "2–4h",
@@ -34,7 +34,7 @@ const CATEGORY_CONTENT = {
         badge: "Trusted",
       },
       {
-        title: "Deep Cleaning",
+        image: "/plumbing-3.png",
         image: "/cleaning/cleaning-3.png",
         priceFrom: 399,
         duration: "4–6h",
@@ -72,8 +72,7 @@ const CATEGORY_CONTENT = {
     cards: [
       {
         title: "Furniture Assembly",
-        image:
-          "https://images.unsplash.com/photo-1582582429416-8b8b1a6b00e5?auto=format&fit=crop&w=1400&q=80",
+        image: "/furniture-2.png",
         priceFrom: 149,
         duration: "1–2h",
         rating: 4.8,
@@ -81,8 +80,7 @@ const CATEGORY_CONTENT = {
       },
       {
         title: "Hanging Shelves & Frames",
-        image:
-          "https://images.unsplash.com/photo-1556909212-d5b604d0c90d?auto=format&fit=crop&w=1400&q=80",
+        image: "/furniture-1.png",
         priceFrom: 129,
         duration: "1h",
         rating: 4.7,
@@ -90,8 +88,7 @@ const CATEGORY_CONTENT = {
       },
       {
         title: "General Repairs",
-        image:
-          "https://images.unsplash.com/photo-1581091215367-59ab6f0b7b6c?auto=format&fit=crop&w=1400&q=80",
+        image: "/furniture-3.png",
         priceFrom: 179,
         duration: "1–3h",
         rating: 4.6,
@@ -184,8 +181,7 @@ const CATEGORY_CONTENT = {
     cards: [
       {
         title: "Fix a Leak",
-        image:
-          "https://images.unsplash.com/photo-1581579186913-45ac3e6efe93?auto=format&fit=crop&w=1400&q=80",
+        image: "/plumbing-1.png",
         priceFrom: 159,
         duration: "1–2h",
         rating: 4.7,
@@ -193,8 +189,7 @@ const CATEGORY_CONTENT = {
       },
       {
         title: "Unclog Drain",
-        image:
-          "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1400&q=80",
+        image: "/plumbing-2.png",
         priceFrom: 189,
         duration: "1–2h",
         rating: 4.6,
@@ -202,8 +197,7 @@ const CATEGORY_CONTENT = {
       },
       {
         title: "Install Faucet",
-        image:
-          "https://images.unsplash.com/photo-1600566753151-384129cf4e3a?auto=format&fit=crop&w=1400&q=80",
+        image: "/plumbing-3.png",
         priceFrom: 199,
         duration: "1–2h",
         rating: 4.8,
@@ -240,8 +234,7 @@ const CATEGORY_CONTENT = {
     cards: [
       {
         title: "Install Light Fixture",
-        image:
-          "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1400&q=80",
+        image: "/light-1.png",
         priceFrom: 179,
         duration: "1–2h",
         rating: 4.8,
@@ -258,8 +251,7 @@ const CATEGORY_CONTENT = {
       },
       {
         title: "Electrical Diagnostics",
-        image:
-          "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=1400&q=80",
+        image: "/light-2.png",
         priceFrom: 199,
         duration: "1–2h",
         rating: 4.6,
@@ -296,8 +288,7 @@ const CATEGORY_CONTENT = {
     cards: [
       {
         title: "Interior Painting",
-        image:
-          "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=1400&q=80",
+        image: "/painting-1.png",
         priceFrom: 499,
         duration: "1–2 days",
         rating: 4.8,
@@ -305,8 +296,7 @@ const CATEGORY_CONTENT = {
       },
       {
         title: "Touch-ups",
-        image:
-          "https://images.unsplash.com/photo-1593697820676-6eace8e37b10?auto=format&fit=crop&w=1400&q=80",
+        image: "/painting-2.png",
         priceFrom: 149,
         duration: "1–2h",
         rating: 4.7,
@@ -314,8 +304,7 @@ const CATEGORY_CONTENT = {
       },
       {
         title: "Door & Trim",
-        image:
-          "https://images.unsplash.com/photo-1582582429416-8b8b1a6b00e5?auto=format&fit=crop&w=1400&q=80",
+        image: "/painting-3.png",
         priceFrom: 199,
         duration: "2–4h",
         rating: 4.6,
