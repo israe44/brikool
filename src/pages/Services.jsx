@@ -1,17 +1,6 @@
 import React, { useMemo, useState } from "react";
 import "./Services.css";
-
-const CATEGORIES = [
-  { id: "cleaning", label: "Cleaning" },
-  { id: "handyman", label: "Handyman services" },
-  { id: "elder", label: "Elder emergencies" },
-  { id: "plumbing", label: "Plumbing" },
-  { id: "electrical", label: "Electrical" },
-  { id: "painting", label: "Painting" },
-  { id: "smarthome", label: "Smart home" },
-  { id: "birthdays", label: "Birthday organization" },
-  { id: "sports", label: "Weekend sports buddy" },
-];
+import { CATEGORIES } from "../data/categories";
 
 const CATEGORY_CONTENT = {
   cleaning: {
@@ -491,6 +480,26 @@ export default function Services() {
       const cover = CATEGORY_CONTENT[cat.id]?.cards?.[0]?.image;
       return { ...cat, cover };
     });
+  }, []);
+
+  // On mount, support scrolling to a category via hash (#cat-<id>) or ?cat=<id>
+  React.useEffect(() => {
+    const tryScroll = () => {
+      const hash = window.location.hash || "";
+      if (hash.startsWith("#cat-")) {
+        const id = hash.replace("#cat-", "");
+        scrollToId(id);
+        return;
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get("cat");
+      if (cat) scrollToId(cat);
+    };
+
+    // Delay slightly to allow elements to render
+    const t = setTimeout(tryScroll, 50);
+    return () => clearTimeout(t);
   }, []);
 
   return (

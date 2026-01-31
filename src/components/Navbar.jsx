@@ -1,9 +1,10 @@
 // src/components/layout/Navbar.jsx
+import React from "react";
 import { supabase } from "../lib/supabase";
 
 const links = [
   { label: "Services", href: "/services" },
-  { label: "Who we serve", href: "/who-we-serve" },
+  { label: "Blog", href: "/blog" },
   { label: "Sign up / Log in", href: "/auth" },
 ];
 
@@ -21,7 +22,7 @@ export default function Navbar({ navigate, path, session }) {
             onClick={(e) => {
               if (navigate) {
                 e.preventDefault();
-                navigate("/services"); // better UX: logo takes them to services
+                navigate("/");
               }
             }}
           >
@@ -46,26 +47,47 @@ export default function Navbar({ navigate, path, session }) {
                 if (session && l.href === "/auth") return false;
                 return true;
               })
-              .map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  onClick={(e) => {
-                    if (navigate) {
-                      e.preventDefault();
-                      navigate(l.href);
-                    }
-                  }}
-                  className={[
-                    "text-[20px] font-semibold transition",
-                    isActive(l.href)
-                      ? "text-emerald-700"
-                      : "text-gray-900 hover:text-gray-700",
-                  ].join(" ")}
-                >
-                  {l.label}
-                </a>
-              ))}
+              .map((l) => {
+                if (l.href === "/services") {
+                  return (
+                    <a
+                      key={l.href}
+                      href={l.href}
+                      onClick={(e) => {
+                        if (navigate) {
+                          e.preventDefault();
+                          navigate(l.href);
+                        }
+                      }}
+                      className={[
+                        "text-[20px] font-semibold transition",
+                        isActive(l.href) ? "text-emerald-700" : "text-gray-900 hover:text-gray-700",
+                      ].join(" ")}
+                    >
+                      {l.label}
+                    </a>
+                  );
+                }
+
+                return (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    onClick={(e) => {
+                      if (navigate) {
+                        e.preventDefault();
+                        navigate(l.href);
+                      }
+                    }}
+                    className={[
+                      "text-[20px] font-semibold transition",
+                      isActive(l.href) ? "text-emerald-700" : "text-gray-900 hover:text-gray-700",
+                    ].join(" ")}
+                  >
+                    {l.label}
+                  </a>
+                );
+              })}
 
             {/* If logged in, show logout */}
             {session ? (
