@@ -53,10 +53,10 @@
 
 /* SEARCH CARD */
 .services-searchCard{
-  width: min(980px, 92vw);
+  width: min(760px, 80vw);
   background: rgba(255,255,255,0.96);
   border: 1px solid rgba(255,255,255,0.65);
-  border-radius: var(--radius);
+  border-radius: 4px;
   box-shadow: var(--shadow);
   padding: 22px 22px 16px;
   backdrop-filter: blur(10px);
@@ -215,6 +215,44 @@
   background-position: center;
   position: relative;
 }
+
+/* Lightbox for full-screen image view */
+.image-lightbox{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+}
+.image-lightboxContent{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+.image-lightboxImg{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.image-lightboxClose{
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border: 0;
+  font-size: 28px;
+  line-height: 1;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+.image-lightboxClose:hover{ background: rgba(255,255,255,0.18); }
 
 .services-cardLabel{
   padding: 12px 12px;

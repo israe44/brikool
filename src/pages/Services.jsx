@@ -18,7 +18,7 @@ const CATEGORY_CONTENT = {
     title: "Cleaning",
     cards: [
       {
-        image: "/plumbing-1.png",
+        title: "Home Cleaning",
         image: "/cleaning/cleaning-1.png",
         priceFrom: 199,
         duration: "2–3h",
@@ -26,7 +26,7 @@ const CATEGORY_CONTENT = {
         badge: "Popular",
       },
       {
-        image: "/plumbing-2.png",
+        title: "Salon cleaning",
         image: "/cleaning/cleaning-2.png",
         priceFrom: 299,
         duration: "2–4h",
@@ -34,7 +34,7 @@ const CATEGORY_CONTENT = {
         badge: "Trusted",
       },
       {
-        image: "/plumbing-3.png",
+        title: "Deep Cleaning",
         image: "/cleaning/cleaning-3.png",
         priceFrom: 399,
         duration: "4–6h",
@@ -332,8 +332,7 @@ const CATEGORY_CONTENT = {
       },
       {
         title: "Wi-Fi & Router Setup",
-        image:
-          "https://images.unsplash.com/photo-1580894908361-967195033215?auto=format&fit=crop&w=1400&q=80",
+        image: "/wifi.png",
         priceFrom: 129,
         duration: "1h",
         rating: 4.7,
@@ -341,8 +340,7 @@ const CATEGORY_CONTENT = {
       },
       {
         title: "Smart Camera Setup",
-        image:
-          "https://images.unsplash.com/photo-1558002038-1c9f9ed1f4b2?auto=format&fit=crop&w=1400&q=80",
+        image: "/cam.png",
         priceFrom: 199,
         duration: "1–2h",
         rating: 4.6,
@@ -378,9 +376,8 @@ const CATEGORY_CONTENT = {
         badge: "Creative",
       },
       {
-        title: "Catering & Snacks",
-        image:
-          "https://images.unsplash.com/photo-1464349153735-7db50ed83c84?auto=format&fit=crop&w=1400&q=80",
+        title: "Abidat Rma",
+        image: "/abidatema.png",
         priceFrom: 249,
         duration: "2–3h",
         rating: 4.5,
@@ -399,8 +396,8 @@ const CATEGORY_CONTENT = {
     cards: [
       {
         title: "Find a Running Partner",
-        image:
-          "https://images.unsplash.com/photo-1546484959-f9a81f6b296d?auto=format&fit=crop&w=1400&q=80",
+        image: "/sport-1.png",
+        backgroundPosition: "center 60%",
         priceFrom: 0,
         duration: "Weekend",
         rating: 4.9,
@@ -408,17 +405,15 @@ const CATEGORY_CONTENT = {
       },
       {
         title: "Football / Basketball Group",
-        image:
-          "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1400&q=80",
+        image: "/sport-2.png",
         priceFrom: 0,
         duration: "Weekend",
         rating: 4.8,
         badge: "Popular",
       },
       {
-        title: "Hiking Buddy",
-        image:
-          "https://images.unsplash.com/photo-1526481280695-3c687fd5432c?auto=format&fit=crop&w=1400&q=80",
+        title: "Bicycle Bodies",
+        image: "/sport-3.png",
         priceFrom: 0,
         duration: "Weekend",
         rating: 4.7,
@@ -439,6 +434,7 @@ function norm(s = "") {
 
 export default function Services() {
   const [query, setQuery] = useState("");
+  const [lightbox, setLightbox] = useState(null);
 
   const q = norm(query);
 
@@ -608,7 +604,11 @@ export default function Services() {
                       <button key={card.title} className="services-card services-card--details" type="button">
                         <div
                           className="services-cardImg"
-                          style={{ backgroundImage: `url(${card.image})` }}
+                          style={{
+                            backgroundImage: `url(${card.image})`,
+                            backgroundPosition: card.backgroundPosition || "center",
+                            backgroundSize: card.backgroundSize || "cover",
+                          }}
                           aria-hidden="true"
                         >
                           {card.badge ? <div className="services-badge">{card.badge}</div> : null}
@@ -673,6 +673,30 @@ export default function Services() {
           </div>
         </div>
       </footer>
+      {lightbox && (
+        <div
+          className="image-lightbox"
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setLightbox(null)}
+        >
+          <div className="image-lightboxContent" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={lightbox.image}
+              alt={lightbox.title || "image"}
+              className="image-lightboxImg"
+              style={{ objectPosition: lightbox.backgroundPosition || "center" }}
+            />
+          </div>
+          <button
+            type="button"
+            className="image-lightboxClose"
+            onClick={() => setLightbox(null)}
+          >
+            ×
+          </button>
+        </div>
+      )}
     </div>
   );
 }
