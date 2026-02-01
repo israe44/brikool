@@ -2,10 +2,15 @@
 import React from "react";
 import { supabase } from "../lib/supabase";
 
-const links = [
+const leftLinks = [
   { label: "Services", href: "/services" },
   { label: "Blog", href: "/blog" },
-  { label: "Sign up / Log in", href: "/auth" },
+];
+
+const rightLinks = [
+  { label: "Become a Provider", href: "/become-provider" },
+  { label: "Help", href: "/help" },
+  { label: "Log In", href: "/auth" },
 ];
 
 export default function Navbar({ navigate, path, session }) {
@@ -13,105 +18,82 @@ export default function Navbar({ navigate, path, session }) {
 
   return (
     <header className="w-full bg-white border-b border-gray-200">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="flex h-20 items-center justify-between">
-          {/* Left: Logo */}
-          <a
-            href="/"
-            className="flex items-center gap-3"
-            onClick={(e) => {
-              if (navigate) {
-                e.preventDefault();
-                navigate("/");
-              }
-            }}
-          >
-            <img
-              src="/logo-finder.png"
-              alt="logo-finder"
-              className="h-28 max-w-[2000px] w-auto object-contain"
-              width={2000}
-              height={112}
-              loading="eager"
-              decoding="async"
-              style={{ imageRendering: "auto" }}
-            />
-            <span className="sr-only">finderr</span>
-          </a>
+      <div className="mx-auto max-w-[1500px] px-12">
+        <div className="flex h-[72px] items-center justify-between">
 
-          {/* Right: Links + CTA */}
-          <nav className="flex items-center gap-10">
-            {links
-              .filter((l) => {
-                // Hide auth link if user is logged in
-                if (session && l.href === "/auth") return false;
-                return true;
-              })
-              .map((l) => {
-                if (l.href === "/services") {
-                  return (
-                    <a
-                      key={l.href}
-                      href={l.href}
-                      onClick={(e) => {
-                        if (navigate) {
-                          e.preventDefault();
-                          navigate(l.href);
-                        }
-                      }}
-                      className={[
-                        "text-[20px] font-semibold transition",
-                        isActive(l.href) ? "text-emerald-700" : "text-gray-900 hover:text-gray-700",
-                      ].join(" ")}
-                    >
-                      {l.label}
-                    </a>
-                  );
+          {/* LEFT: Logo + Features */}
+          <div className="flex items-center gap-8">
+            <a
+              href="/"
+              onClick={(e) => {
+                if (navigate) {
+                  e.preventDefault();
+                  navigate("/");
                 }
+              }}
+              className="flex items-center"
+            >
+              <img
+                src="/logo-finder.png"
+                alt="logo-finder"
+                className="h-24 w-auto object-contain"
+                loading="eager"
+              />
+            </a>
 
-                return (
-                  <a
-                    key={l.href}
-                    href={l.href}
-                    onClick={(e) => {
-                      if (navigate) {
-                        e.preventDefault();
-                        navigate(l.href);
-                      }
-                    }}
-                    className={[
-                      "text-[20px] font-semibold transition",
-                      isActive(l.href) ? "text-emerald-700" : "text-gray-900 hover:text-gray-700",
-                    ].join(" ")}
-                  >
-                    {l.label}
-                  </a>
-                );
-              })}
+            <nav className="flex items-center gap-12">
+              {leftLinks.map((l) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={(e) => {
+                    if (navigate) {
+                      e.preventDefault();
+                      navigate(l.href);
+                    }
+                  }}
+                  className={[
+                    "text-[20px] font-semibold transition-colors",
+                    isActive(l.href)
+                      ? "text-sky-600"
+                      : "text-gray-800 hover:text-gray-900",
+                  ].join(" ")}
+                >
+                  {l.label}
+                </a>
+              ))}
+            </nav>
+          </div>
 
-            {/* If logged in, show logout */}
-            {session ? (
+          {/* RIGHT: Utility links */}
+          <nav className="flex items-center gap-10">
+            {!session &&
+              rightLinks.map((l) => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={(e) => {
+                    if (navigate) {
+                      e.preventDefault();
+                      navigate(l.href);
+                    }
+                  }}
+                  className="text-[17px] font-medium text-gray-700 hover:text-gray-900 transition-colors"
+                >
+                  {l.label}
+                </a>
+              ))}
+
+            {session && (
               <button
                 onClick={() => supabase.auth.signOut()}
-                className="rounded-full border border-gray-900 px-6 py-2.5 text-[20px] font-semibold text-gray-900 hover:bg-gray-50 transition"
+                className="text-[17px] font-medium text-gray-700 hover:text-gray-900 transition-colors"
               >
                 Log out
               </button>
-            ) : (
-              <a
-                href="/become-provider"
-                onClick={(e) => {
-                  if (navigate) {
-                    e.preventDefault();
-                    navigate("/become-provider");
-                  }
-                }}
-                className="rounded-full border border-emerald-700 px-6 py-2.5 text-[20px] font-semibold text-emerald-700 hover:bg-emerald-50 transition"
-              >
-                Become a Provider
-              </a>
             )}
           </nav>
+
         </div>
       </div>
     </header>

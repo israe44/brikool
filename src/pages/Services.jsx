@@ -357,8 +357,7 @@ const CATEGORY_CONTENT = {
       },
       {
         title: "Decoration & Theme",
-        image:
-          "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1400&q=80",
+        image: "/bday.png",
         priceFrom: 199,
         duration: "2–3h",
         rating: 4.6,

@@ -1,9 +1,11 @@
 import { useEffect, useState, useCallback } from "react";
 import Navbar from "./components/Navbar";
 import { supabase } from "./lib/supabase";
+
 import Auth from "./pages/Auth";
 import BecomeProvider from "./pages/BecomeProvider";
 import Services from "./pages/Services";
+import Blog from "./components/blog/Blog"; 
 
 export default function App() {
   const [path, setPath] = useState(window.location.pathname);
@@ -46,16 +48,21 @@ export default function App() {
   }, [session, path, navigate]);
 
   // Full-page routes (no container)
-  const fullPageRoutes = new Set(["/services"]);
+  const fullPageRoutes = new Set(["/services", "/blog"]); // ✅ blog is full page too
 
   return (
     <>
-      <Navbar navigate={navigate} path={path} />
+      {/* ✅ pass session because Navbar expects it */}
+      <Navbar navigate={navigate} path={path} session={session} />
 
       {fullPageRoutes.has(path) ? (
         <>
           {/* FULL PAGE */}
-          {path === "/services" && <Services navigate={navigate} session={session} />}
+          {path === "/services" && (
+            <Services navigate={navigate} session={session} />
+          )}
+
+          {path === "/blog" && <Blog navigate={navigate} session={session} />}
         </>
       ) : (
         <main className="mx-auto max-w-7xl px-6 py-10">
