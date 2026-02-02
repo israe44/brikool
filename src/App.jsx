@@ -7,6 +7,7 @@ import BecomeProvider from "./pages/BecomeProvider";
 import Services from "./pages/Services";
 import Blog from "./components/blog/Blog";
 import Landing from "./components/home/LandingPage"; // use existing Home component as Landing
+import Help from "./pages/Help";
 
 export default function App() {
   const [path, setPath] = useState(window.location.pathname);
@@ -42,7 +43,7 @@ export default function App() {
   }, []);
 
   // Full-page routes (no container, no standard layout)
-  const fullPageRoutes = new Set(["/", "/services", "/blog"]);
+  const fullPageRoutes = new Set(["/", "/services", "/blog", "/help"]);
 
   return (
     <>
@@ -61,6 +62,8 @@ export default function App() {
 
           {/* BLOG PAGE */}
           {path === "/blog" && <Blog navigate={navigate} session={session} />}
+          {/* HELP PAGE */}
+          {path === "/help" && <Help navigate={navigate} path={path} session={session} />}
         </>
       ) : (
         <main className="mx-auto max-w-7xl px-6 py-10">
