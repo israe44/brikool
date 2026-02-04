@@ -1,6 +1,18 @@
-import React, { useMemo, useState } from "react";
+// src/pages/Services.jsx
+import React, { useEffect, useMemo, useState } from "react";
 import "./Services.css";
 import { CATEGORIES } from "../data/categories";
+import ServiceCategory from "../components/ServiceCategory";
+
+// helper: create URL-safe id for detail pages
+function slugify(s = "") {
+  return s
+    .toLowerCase()
+    .trim()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)+/g, "");
+}
 
 const CATEGORY_CONTENT = {
   cleaning: {
@@ -13,6 +25,7 @@ const CATEGORY_CONTENT = {
         duration: "2–3h",
         rating: 4.8,
         badge: "Popular",
+        pageId: "home-cleaning",
       },
       {
         title: "Salon cleaning",
@@ -21,6 +34,7 @@ const CATEGORY_CONTENT = {
         duration: "2–4h",
         rating: 4.7,
         badge: "Trusted",
+        pageId: "salon-cleaning",
       },
       {
         title: "Deep Cleaning",
@@ -29,30 +43,13 @@ const CATEGORY_CONTENT = {
         duration: "4–6h",
         rating: 4.9,
         badge: "Best value",
+        pageId: "deep-cleaning",
       },
     ],
     lists: [
-      [
-        "Apartment cleaning",
-        "Move-in cleaning",
-        "Move-out cleaning",
-        "Kitchen cleaning",
-        "Bathroom cleaning",
-      ],
-      [
-        "Windows cleaning",
-        "Carpet cleaning",
-        "Sofa cleaning",
-        "Fridge cleaning",
-        "Oven cleaning",
-      ],
-      [
-        "Weekly cleaning",
-        "Post-renovation cleaning",
-        "Sanitization",
-        "Local cleaners",
-        "Same-day cleaning",
-      ],
+      ["Apartment cleaning", "Move-in cleaning", "Move-out cleaning", "Kitchen cleaning", "Bathroom cleaning"],
+      ["Windows cleaning", "Carpet cleaning", "Sofa cleaning", "Fridge cleaning", "Oven cleaning"],
+      ["Weekly cleaning", "Post-renovation cleaning", "Sanitization", "Local cleaners", "Same-day cleaning"],
     ],
   },
 
@@ -66,6 +63,7 @@ const CATEGORY_CONTENT = {
         duration: "1–2h",
         rating: 4.8,
         badge: "Fast",
+        pageId: "furniture-assembly",
       },
       {
         title: "Hanging Shelves & Frames",
@@ -74,6 +72,7 @@ const CATEGORY_CONTENT = {
         duration: "1h",
         rating: 4.7,
         badge: "Popular",
+        pageId: "hanging-shelves-and-frames",
       },
       {
         title: "General Repairs",
@@ -82,30 +81,13 @@ const CATEGORY_CONTENT = {
         duration: "1–3h",
         rating: 4.6,
         badge: "Pro",
+        pageId: "general-repairs",
       },
     ],
     lists: [
-      [
-        "Door handle fix",
-        "Curtains installation",
-        "TV wall bracket",
-        "Minor repairs",
-        "Wall drilling",
-      ],
-      [
-        "Furniture repair",
-        "Cabinet alignment",
-        "Silicone sealing",
-        "Mount mirrors",
-        "Fix squeaky door",
-      ],
-      [
-        "Small installations",
-        "Home maintenance",
-        "Fix cracks",
-        "Replace lock",
-        "Replace hinges",
-      ],
+      ["Door handle fix", "Curtains installation", "TV wall bracket", "Minor repairs", "Wall drilling"],
+      ["Furniture repair", "Cabinet alignment", "Silicone sealing", "Mount mirrors", "Fix squeaky door"],
+      ["Small installations", "Home maintenance", "Fix cracks", "Replace lock", "Replace hinges"],
     ],
   },
 
@@ -120,6 +102,7 @@ const CATEGORY_CONTENT = {
         duration: "ASAP",
         rating: 4.9,
         badge: "Urgent",
+        pageId: "urgent-assistance",
       },
       {
         title: "Home Safety Check",
@@ -129,6 +112,7 @@ const CATEGORY_CONTENT = {
         duration: "1–2h",
         rating: 4.8,
         badge: "Recommended",
+        pageId: "home-safety-check",
       },
       {
         title: "Care Support (Non-medical)",
@@ -138,30 +122,13 @@ const CATEGORY_CONTENT = {
         duration: "1–3h",
         rating: 4.7,
         badge: "Trusted",
+        pageId: "care-support-non-medical",
       },
     ],
     lists: [
-      [
-        "Urgent home visit",
-        "Escort & help at home",
-        "Pick up groceries",
-        "Pharmacy pickup",
-        "Check-in visit",
-      ],
-      [
-        "Install grab bars",
-        "Anti-slip solutions",
-        "Lighting check",
-        "Fall-risk review",
-        "Door & lock check",
-      ],
-      [
-        "Companionship visit",
-        "Basic meal prep",
-        "Help with tech",
-        "Organize medicines (no medical)",
-        "Call family update",
-      ],
+      ["Urgent home visit", "Escort & help at home", "Pick up groceries", "Pharmacy pickup", "Check-in visit"],
+      ["Install grab bars", "Anti-slip solutions", "Lighting check", "Fall-risk review", "Door & lock check"],
+      ["Companionship visit", "Basic meal prep", "Help with tech", "Organize medicines (no medical)", "Call family update"],
     ],
   },
 
@@ -175,6 +142,7 @@ const CATEGORY_CONTENT = {
         duration: "1–2h",
         rating: 4.7,
         badge: "Popular",
+        pageId: "fix-a-leak",
       },
       {
         title: "Unclog Drain",
@@ -183,6 +151,7 @@ const CATEGORY_CONTENT = {
         duration: "1–2h",
         rating: 4.6,
         badge: "Same-day",
+        pageId: "unclog-drain",
       },
       {
         title: "Install Faucet",
@@ -191,30 +160,13 @@ const CATEGORY_CONTENT = {
         duration: "1–2h",
         rating: 4.8,
         badge: "Pro",
+        pageId: "install-faucet",
       },
     ],
     lists: [
-      [
-        "Leak repair",
-        "Faucet replace",
-        "Toilet fix",
-        "Shower repair",
-        "Water pressure issue",
-      ],
-      [
-        "Drain unclog",
-        "Pipe replacement",
-        "Seal & silicone",
-        "Sink installation",
-        "Water heater check",
-      ],
-      [
-        "Bathroom plumbing",
-        "Kitchen plumbing",
-        "Emergency plumbing",
-        "Bidet installation",
-        "Outdoor tap fix",
-      ],
+      ["Leak repair", "Faucet replace", "Toilet fix", "Shower repair", "Water pressure issue"],
+      ["Drain unclog", "Pipe replacement", "Seal & silicone", "Sink installation", "Water heater check"],
+      ["Bathroom plumbing", "Kitchen plumbing", "Emergency plumbing", "Bidet installation", "Outdoor tap fix"],
     ],
   },
 
@@ -228,6 +180,7 @@ const CATEGORY_CONTENT = {
         duration: "1–2h",
         rating: 4.8,
         badge: "Top rated",
+        pageId: "install-light-fixture",
       },
       {
         title: "Fix Outlet / Switch",
@@ -237,6 +190,7 @@ const CATEGORY_CONTENT = {
         duration: "1h",
         rating: 4.7,
         badge: "Popular",
+        pageId: "fix-outlet-switch",
       },
       {
         title: "Electrical Diagnostics",
@@ -245,30 +199,13 @@ const CATEGORY_CONTENT = {
         duration: "1–2h",
         rating: 4.6,
         badge: "Pro",
+        pageId: "electrical-diagnostics",
       },
     ],
     lists: [
-      [
-        "Outlet repair",
-        "Switch replacement",
-        "Circuit check",
-        "Lights installation",
-        "Fan installation",
-      ],
-      [
-        "Breaker issues",
-        "Short circuit check",
-        "Doorbell install",
-        "LED setup",
-        "Basic rewiring",
-      ],
-      [
-        "Emergency electrician",
-        "Appliance wiring",
-        "Electrical safety check",
-        "Grounding check",
-        "Smart switch install",
-      ],
+      ["Outlet repair", "Switch replacement", "Circuit check", "Lights installation", "Fan installation"],
+      ["Breaker issues", "Short circuit check", "Doorbell install", "LED setup", "Basic rewiring"],
+      ["Emergency electrician", "Appliance wiring", "Electrical safety check", "Grounding check", "Smart switch install"],
     ],
   },
 
@@ -282,6 +219,7 @@ const CATEGORY_CONTENT = {
         duration: "1–2 days",
         rating: 4.8,
         badge: "Popular",
+        pageId: "interior-painting",
       },
       {
         title: "Touch-ups",
@@ -290,6 +228,7 @@ const CATEGORY_CONTENT = {
         duration: "1–2h",
         rating: 4.7,
         badge: "Fast",
+        pageId: "touch-ups",
       },
       {
         title: "Door & Trim",
@@ -298,6 +237,7 @@ const CATEGORY_CONTENT = {
         duration: "2–4h",
         rating: 4.6,
         badge: "Pro",
+        pageId: "door-and-trim",
       },
     ],
     lists: [
@@ -318,6 +258,7 @@ const CATEGORY_CONTENT = {
         duration: "1–2h",
         rating: 4.8,
         badge: "Top rated",
+        pageId: "smart-lights-setup",
       },
       {
         title: "Wi-Fi & Router Setup",
@@ -326,6 +267,7 @@ const CATEGORY_CONTENT = {
         duration: "1h",
         rating: 4.7,
         badge: "Popular",
+        pageId: "wifi-router-setup",
       },
       {
         title: "Smart Camera Setup",
@@ -334,6 +276,7 @@ const CATEGORY_CONTENT = {
         duration: "1–2h",
         rating: 4.6,
         badge: "Pro",
+        pageId: "smart-camera-setup",
       },
     ],
     lists: [
@@ -354,6 +297,7 @@ const CATEGORY_CONTENT = {
         duration: "2–4h",
         rating: 4.7,
         badge: "Popular",
+        pageId: "at-home-party-setup",
       },
       {
         title: "Decoration & Theme",
@@ -362,6 +306,7 @@ const CATEGORY_CONTENT = {
         duration: "2–3h",
         rating: 4.6,
         badge: "Creative",
+        pageId: "decoration-and-theme",
       },
       {
         title: "Abidat Rma",
@@ -370,6 +315,7 @@ const CATEGORY_CONTENT = {
         duration: "2–3h",
         rating: 4.5,
         badge: "Premium",
+        pageId: "abidat-rma",
       },
     ],
     lists: [
@@ -390,6 +336,7 @@ const CATEGORY_CONTENT = {
         duration: "Weekend",
         rating: 4.9,
         badge: "Community",
+        pageId: "find-a-running-partner",
       },
       {
         title: "Football / Basketball Group",
@@ -398,6 +345,7 @@ const CATEGORY_CONTENT = {
         duration: "Weekend",
         rating: 4.8,
         badge: "Popular",
+        pageId: "football-basketball-group",
       },
       {
         title: "Bicycle Bodies",
@@ -406,6 +354,7 @@ const CATEGORY_CONTENT = {
         duration: "Weekend",
         rating: 4.7,
         badge: "Outdoor",
+        pageId: "bicycle-bodies",
       },
     ],
     lists: [
@@ -420,7 +369,8 @@ function norm(s = "") {
   return s.toLowerCase().trim();
 }
 
-export default function Services() {
+export default function Services({ navigate }) {
+
   const [query, setQuery] = useState("");
   const [lightbox, setLightbox] = useState(null);
 
@@ -429,8 +379,6 @@ export default function Services() {
   const scrollToId = (id) => {
     const el = document.getElementById(`cat-${id}`);
     if (!el) return;
-
-    // offset for navbar height
     const y = el.getBoundingClientRect().top + window.scrollY - 96;
     window.scrollTo({ top: y, behavior: "smooth" });
   };
@@ -466,7 +414,6 @@ export default function Services() {
     const hitLabel = norm(catLabel).includes(q);
     const hitTitle = norm(content.title).includes(q);
 
-    // If the query matches category name, show the whole section
     if ((hitLabel || hitTitle) && cards.length === 0 && lists.length === 0) {
       return content;
     }
@@ -481,8 +428,8 @@ export default function Services() {
     });
   }, []);
 
-  // On mount, support scrolling to a category via hash (#cat-<id>) or ?cat=<id>
-  React.useEffect(() => {
+  // support scrolling to a category via hash (#cat-<id>) or ?cat=<id>
+  useEffect(() => {
     const tryScroll = () => {
       const hash = window.location.hash || "";
       if (hash.startsWith("#cat-")) {
@@ -496,21 +443,38 @@ export default function Services() {
       if (cat) scrollToId(cat);
     };
 
-    // Delay slightly to allow elements to render
     const t = setTimeout(tryScroll, 50);
     return () => clearTimeout(t);
   }, []);
 
+  // click handlers
+  const openServicePage = (card) => {
+    const id = card.pageId || slugify(card.title);
+    navigate(`/service/${id}`, { card });
+  };
+
+  const openListItemPage = (catId, itemText) => {
+    // Special handling for Apartment cleaning
+    if (itemText === "Apartment cleaning") {
+      navigate("/apartment-cleaning");
+      return;
+    }
+    
+    // optional: list items get their own pages too
+    // example: "Cleaning • Move-in cleaning" => move-in-cleaning
+    const id = slugify(itemText);
+    navigate(`/service/${id}`, { fromCategory: catId, label: itemText });
+  };
+
   return (
     <div className="finderr-services">
-      {/* HERO VIDEO */}
+      {/* HERO */}
       <section className="services-hero">
         <div
           className="services-hero__video"
           aria-hidden="true"
           style={{ backgroundImage: `url(servicesbg.png)` }}
         />
-
         <div className="services-hero__overlay" />
 
         <div className="services-hero__inner">
@@ -527,10 +491,7 @@ export default function Services() {
               <button
                 type="button"
                 className="services-searchBtn"
-                onClick={() => {
-                  // scroll to Popular section (like Handy behavior)
-                  scrollToId("popular");
-                }}
+                onClick={() => scrollToId("popular")}
               >
                 Search
               </button>
@@ -551,7 +512,11 @@ export default function Services() {
             <div className="services-leftTitle">All Categories</div>
 
             <div className="services-leftList">
-              <button className="services-leftItem is-active" type="button" onClick={() => scrollToId("popular")}>
+              <button
+                className="services-leftItem is-active"
+                type="button"
+                onClick={() => scrollToId("popular")}
+              >
                 Popular
               </button>
 
@@ -599,62 +564,14 @@ export default function Services() {
             {/* SECTIONS */}
             {visibleCategories.map((cat) => {
               const content = filteredCategoryContent(cat.id);
-              if (!content) return null;
-
               return (
-                <div key={cat.id} id={`cat-${cat.id}`} className="services-section">
-                  <div className="services-rightHeader">
-                    <h2>{content.title}</h2>
-                  </div>
-
-                  <div className="services-cards">
-                    {content.cards.slice(0, 3).map((card) => (
-                      <button key={card.title} className="services-card services-card--details" type="button">
-                        <div
-                          className="services-cardImg"
-                          style={{
-                            backgroundImage: `url(${card.image})`,
-                            backgroundPosition: card.backgroundPosition || "center",
-                            backgroundSize: card.backgroundSize || "cover",
-                          }}
-                          aria-hidden="true"
-                        >
-                          {card.badge ? <div className="services-badge">{card.badge}</div> : null}
-                        </div>
-
-                        <div className="services-cardBody">
-                          <div className="services-cardTop">
-                            <div className="services-cardTitle">{card.title}</div>
-                            <div className="services-cardRating">★ {card.rating}</div>
-                          </div>
-
-                          <div className="services-cardMeta">
-                            <span>From {card.priceFrom === 0 ? "Free" : `${card.priceFrom} MAD`}</span>
-                            <span>•</span>
-                            <span>{card.duration}</span>
-                          </div>
-
-                          <div className="services-cardActions">
-                            <span className="services-ctaLink">See details</span>
-                            <span className="services-ctaBtn">Book</span>
-                          </div>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-
-                  <div className="services-lists">
-                    {content.lists.map((col, idx) => (
-                      <div key={idx} className="services-listCol">
-                        {col.map((item) => (
-                          <button key={item} className="services-listItem" type="button">
-                            {item}
-                          </button>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <ServiceCategory
+                  key={cat.id}
+                  category={cat}
+                  content={content}
+                  openServicePage={openServicePage}
+                  openListItemPage={openListItemPage}
+                />
               );
             })}
 
@@ -681,13 +598,9 @@ export default function Services() {
           </div>
         </div>
       </footer>
+
       {lightbox && (
-        <div
-          className="image-lightbox"
-          role="dialog"
-          aria-modal="true"
-          onClick={() => setLightbox(null)}
-        >
+        <div className="image-lightbox" role="dialog" aria-modal="true" onClick={() => setLightbox(null)}>
           <div className="image-lightboxContent" onClick={(e) => e.stopPropagation()}>
             <img
               src={lightbox.image}
@@ -696,11 +609,7 @@ export default function Services() {
               style={{ objectPosition: lightbox.backgroundPosition || "center" }}
             />
           </div>
-          <button
-            type="button"
-            className="image-lightboxClose"
-            onClick={() => setLightbox(null)}
-          >
+          <button type="button" className="image-lightboxClose" onClick={() => setLightbox(null)}>
             ×
           </button>
         </div>

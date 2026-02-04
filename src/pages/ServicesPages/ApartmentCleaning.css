@@ -1,0 +1,484 @@
+/* APARTMENT CLEANING PAGE - HANDY.COM STYLE */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.apartment-cleaning {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: #333333;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* HERO SECTION */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 550px;
+  overflow: hidden;
+}
+
+.hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-overlay {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 2;
+  padding: 20px;
+}
+
+.booking-box {
+  background: #ffffff;
+  padding: 35px 40px;
+  max-width: 950px;
+  width: 100%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.booking-box h1 {
+  margin: 0 0 15px 0;
+  font-size: 32px;
+  font-weight: bold;
+  color: #333333;
+}
+
+.rating {
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stars {
+  color: #ffa500;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+.review-count {
+  color: #666666;
+  font-size: 14px;
+}
+
+/* BOOKING FORM */
+.booking-form {
+  width: 100%;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.form-row:last-child {
+  grid-template-columns: 1fr 1fr 200px;
+}
+
+.form-row input,
+.form-row select {
+  padding: 14px 15px;
+  border: 1px solid #d0d0d0;
+  background: #ffffff;
+  font-size: 15px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333333;
+  width: 100%;
+}
+
+.form-row input:focus,
+.form-row select:focus {
+  outline: none;
+  border-color: #666666;
+}
+
+.form-row input::placeholder {
+  color: #999999;
+}
+
+.submit-btn {
+  padding: 14px 30px;
+  background: #5cb85c;
+  color: #ffffff;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 100%;
+}
+
+.submit-btn:hover {
+  background: #4cae4c;
+}
+
+.submit-btn:active {
+  background: #449d44;
+}
+
+/* WHAT'S INCLUDED SECTION */
+.whats-included {
+  max-width: 100%;
+  margin: 0;
+  padding: 70px 0;
+  background: #ffffff;
+}
+
+.whats-included h2 {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 70px;
+  color: #333333;
+  font-weight: bold;
+}
+
+.included-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 0;
+  position: relative;
+  min-height: 500px;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.included-item.reverse {
+  direction: rtl;
+}
+
+.included-item.reverse > * {
+  direction: ltr;
+}
+
+.item-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+}
+
+.item-image img {
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  object-fit: cover;
+  display: block;
+}
+
+.item-content {
+  position: relative;
+  background: #ffffff;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.item-content-right {
+  padding-left: 80px;
+}
+
+.item-content-left {
+  padding-right: 80px;
+}
+
+.item-content h3 {
+  margin: 0 0 20px 0;
+  font-size: 24px;
+  color: #333333;
+  font-weight: bold;
+}
+
+.item-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item-content ul li {
+  padding: 8px 0;
+  color: #555555;
+  font-size: 15px;
+  line-height: 1.6;
+  position: relative;
+  padding-left: 25px;
+}
+
+.item-content ul li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #5cb85c;
+  font-weight: bold;
+}
+
+/* EXTRAS SECTION */
+.extras {
+  background: #f8f8f8;
+  padding: 80px 40px;
+}
+
+.extras-content {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 60px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.extras-content h2 {
+  margin: 0 0 20px 0;
+  font-size: 28px;
+  color: #333333;
+  font-weight: bold;
+}
+
+.extras-content p {
+  margin: 0 0 25px 0;
+  color: #555555;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.extras-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.extras-content ul li {
+  padding: 10px 0;
+  color: #555555;
+  font-size: 16px;
+  position: relative;
+  padding-left: 25px;
+}
+
+.extras-content ul li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #333333;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+/* CLEANING PROS SECTION */
+.cleaning-pros {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 40px;
+}
+
+.cleaning-pros h2 {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 60px;
+  color: #333333;
+  font-weight: bold;
+}
+
+.pros-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.pro-card {
+  background: #ffffff;
+  padding: 30px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.pro-photo {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 20px;
+  overflow: hidden;
+}
+
+.pro-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pro-card h4 {
+  margin: 0 0 10px 0;
+  font-size: 20px;
+  color: #333333;
+  font-weight: bold;
+}
+
+.pro-rating {
+  color: #ffa500;
+  font-size: 16px;
+  margin-bottom: 5px;
+  letter-spacing: 2px;
+}
+
+.pro-jobs {
+  color: #666666;
+  font-size: 13px;
+  margin: 0 0 15px 0;
+}
+
+.pro-testimonial {
+  color: #555555;
+  font-size: 14px;
+  line-height: 1.5;
+  font-style: italic;
+  margin: 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .included-item {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .included-item.reverse {
+    direction: ltr;
+  }
+
+  .item-image {
+    min-height: 350px;
+  }
+
+  .item-image img {
+    min-height: 350px;
+  }
+
+  .item-content {
+    padding: 50px 40px;
+  }
+
+  .item-content-right,
+  .item-content-left {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .pros-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .cleaning-pros {
+    padding: 60px 30px;
+  }
+
+  .extras {
+    padding: 60px 30px;
+  }
+
+  .extras-content {
+    padding: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .form-row:last-child {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-box {
+    padding: 30px 25px;
+  }
+
+  .booking-box h1 {
+    font-size: 28px;
+  }
+
+  .hero {
+    height: auto;
+    min-height: 500px;
+  }
+
+  .whats-included h2,
+  .cleaning-pros h2 {
+    font-size: 28px;
+    margin-bottom: 40px;
+  }
+
+  .item-content {
+    padding: 40px 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-box {
+    padding: 25px 20px;
+  }
+
+  .booking-box h1 {
+    font-size: 24px;
+  }
+
+  .rating {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .extras-content {
+    padding: 30px 25px;
+  }
+
+  .pro-card {
+    padding: 25px 20px;
+  }
+
+  .item-content {
+    padding: 30px 25px;
+  }
+
+  .cleaning-pros,
+  .extras {
+    padding: 50px 20px;
+  }
+
+  .whats-included {
+    padding: 50px 0;
+  }
+
+  .whats-included h2 {
+    padding: 0 20px;
+  }
+}
