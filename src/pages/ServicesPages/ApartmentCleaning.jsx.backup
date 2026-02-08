@@ -1,0 +1,260 @@
+import React, { useState } from "react";
+import "./ApartmentCleaning.css";
+
+const ROOM_SECTIONS = [
+  {
+    title: "Bedroom",
+    description: "When you use Finderr to find a bedroom cleaning service in your area, you'll be taken care of by a top-rated and reliable professional.",
+    bullets: [
+      "Make beds and change linens",
+      "Dust all surfaces and furniture",
+      "Vacuum carpets and under beds",
+      "Empty trash bins",
+      "Wipe down mirrors and glass",
+    ],
+    image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=80",
+  },
+  {
+    title: "Bathroom",
+    description: "Professional bathroom cleaning that ensures every surface is sanitized and sparkling clean.",
+    bullets: [
+      "Clean and disinfect toilet, sink, and shower",
+      "Scrub tiles and remove buildup",
+      "Polish mirrors and chrome fixtures",
+      "Mop floors and wipe baseboards",
+      "Empty trash and replace liners",
+    ],
+    image: "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1600&q=80",
+  },
+  {
+    title: "Kitchen",
+    description: "Complete kitchen cleaning service that makes your cooking space fresh and hygienic.",
+    bullets: [
+      "Wipe countertops and backsplash",
+      "Clean exterior of appliances",
+      "Sanitize sink and polish faucet",
+      "Mop floors and wipe high-touch areas",
+      "Take out trash and tidy surfaces",
+    ],
+    image: "https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?auto=format&fit=crop&w=1600&q=80",
+  },
+];
+
+const PRICING_PLANS = [
+  {
+    name: "Basic Clean",
+    price: "$89",
+    period: "Starting at",
+    features: [
+      "Dusting and vacuuming",
+      "Kitchen surface cleaning",
+      "Bathroom sanitizing",
+      "Trash removal",
+      "Up to 2 hours of service"
+    ],
+    popular: false
+  },
+  {
+    name: "Deep Clean",
+    price: "$149",
+    period: "Starting at",
+    features: [
+      "Everything in Basic",
+      "Inside appliances",
+      "Baseboards & ceiling fans",
+      "Window sills",
+      "Up to 4 hours of service"
+    ],
+    popular: true
+  },
+  {
+    name: "Move In/Out",
+    price: "$199",
+    period: "Starting at",
+    features: [
+      "Everything in Deep Clean",
+      "Inside cabinets & drawers",
+      "Wall spot cleaning",
+      "Complete sanitization",
+      "Unlimited time"
+    ],
+    popular: false
+  }
+];
+
+const FAQS = [
+  {
+    question: "What if I'm not satisfied with the cleaning?",
+    answer: "We stand behind our work with a 100% satisfaction guarantee. If you're not happy, contact us within 24 hours and we'll send a pro back at no additional cost."
+  },
+  {
+    question: "Do I need to provide cleaning supplies?",
+    answer: "No, our professionals come fully equipped with all necessary supplies and equipment. If you prefer specific products, just let us know when booking."
+  },
+  {
+    question: "How long does cleaning take?",
+    answer: "A basic 1-bedroom typically takes 2-3 hours, while a deep clean of a 3-bedroom may take 4-6 hours. Time varies based on apartment size and service type."
+  },
+  {
+    question: "Are your cleaners vetted?",
+    answer: "Absolutely. All professionals undergo thorough background checks, are insured and bonded, and have verified reviews from previous customers."
+  }
+];
+
+export default function ApartmentCleaning({ navigate }) {
+  const [expandedFaq, setExpandedFaq] = useState(null);
+
+  return (
+    <div className="ac-page">
+      {/* HERO (full width) */}
+      <header className="ac-hero ac-full">
+        <div className="ac-container">
+          <h1 className="ac-title">Apartment Cleaning</h1>
+          <p className="ac-subtitle">
+            A clean, editorial service page — predictable results, clear checklists,
+            and flexible scheduling.
+          </p>
+
+          <div className="ac-heroActions">
+            <button
+              className="ac-primaryBtn"
+              type="button"
+              onClick={() => navigate?.("/auth")}
+            >
+              Book now
+            </button>
+
+            <button
+              className="ac-secondaryBtn"
+              type="button"
+              onClick={() => {
+                const el = document.getElementById("ac-included");
+                el?.scrollIntoView({ behavior: "smooth", block: "start" });
+              }}
+            >
+              What’s included
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* FEATURE (full width background + overlay card) */}
+      <section className="ac-band ac-full">
+        <div
+          className="ac-bandBg"
+          style={{
+            backgroundImage:
+              'url("https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=2400&q=80")',
+          }}
+          aria-hidden="true"
+        />
+
+        <div className="ac-bandInner">
+          <div className="ac-container">
+            <div className="ac-overlay ac-overlayRight">
+              <h2 className="ac-h2">Save time and money</h2>
+              <p className="ac-text">
+                Get transparent pricing and consistent results. Your cleaner follows
+                a structured checklist while adapting to your preferences.
+              </p>
+              <p className="ac-text">
+                Need extras (inside fridge, oven, laundry)? Add them during booking —
+                and keep everything simple.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* INCLUDED (full width but content is centered like Handy) */}
+      <section id="ac-included" className="ac-included ac-full">
+        <div className="ac-container">
+          <h2 className="ac-h2">What’s included</h2>
+
+          <div className="ac-columns">
+            <ul className="ac-list">
+              <li>Dusting and wipe-down of surfaces</li>
+              <li>Vacuuming and mopping floors</li>
+              <li>Bathroom sanitization</li>
+              <li>Kitchen wipe-down and sink cleaning</li>
+            </ul>
+            <ul className="ac-list">
+              <li>Trash removal</li>
+              <li>Mirrors and glass wipe-down</li>
+              <li>High-touch areas (handles, switches)</li>
+              <li>Optional add-ons during checkout</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ROOM BANDS (FULL WIDTH) - same style as "Save time and money" */}
+      {ROOM_SECTIONS.map((room, idx) => {
+        const align = idx % 2 === 0 ? "ac-overlayRight" : "ac-overlayLeft";
+
+        return (
+          <section className="ac-band ac-full" key={room.title}>
+            <div
+              className="ac-bandBg"
+              style={{ backgroundImage: `url("${room.bg}")` }}
+              aria-hidden="true"
+            />
+
+            <div className="ac-bandInner">
+              <div className="ac-container">
+                <div className={`ac-overlay ${align}`}>
+                  <h3 className="ac-h3">{room.title}</h3>
+
+                  <ul className="ac-checklist">
+                    {room.bullets.map((b) => (
+                      <li key={b}>
+                        <span className="ac-check" aria-hidden="true">
+                          ✓
+                        </span>
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="ac-roomNote">
+                    <span className="ac-noteLabel">Tip:</span> Add notes during
+                    booking (ex: “focus on floors” or “extra attention to bathroom”).
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+      })}
+
+      {/* CTA (full width) */}
+      <section className="ac-cta ac-full">
+        <div className="ac-container ac-ctaGrid">
+          <div>
+            <h2 className="ac-h2">Ready to book?</h2>
+            <p className="ac-text">
+              Pick your date, time, and add-ons — and get your apartment handled.
+            </p>
+          </div>
+
+          <div className="ac-ctaActions">
+            <button
+              className="ac-primaryBtn"
+              type="button"
+              onClick={() => navigate?.("/auth")}
+            >
+              Continue to booking
+            </button>
+            <button
+              className="ac-secondaryBtn"
+              type="button"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            >
+              Back to top
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
