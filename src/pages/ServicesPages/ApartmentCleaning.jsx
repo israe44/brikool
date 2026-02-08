@@ -1,245 +1,271 @@
-import React, { useState } from "react";
-import "./ApartmentCleaning.css";
+import React, { useState } from 'react';
+import './ApartmentCleaning.css';
+
+const PRICING_PLANS = [
+  {
+    name: 'Basic Clean',
+    price: 89,
+    period: 'Starting from',
+    features: [
+      'Dusting all surfaces',
+      'Vacuum & mop floors',
+      'Bathroom cleaning',
+      'Kitchen cleaning',
+      'Trash removal',
+    ],
+    popular: false,
+  },
+  {
+    name: 'Deep Clean',
+    price: 149,
+    period: 'Starting from',
+    features: [
+      'Everything in Basic Clean',
+      'Inside oven & fridge',
+      'Baseboards & windowsills',
+      'Cabinet exteriors',
+      'Light fixtures',
+      'Behind appliances',
+    ],
+    popular: true,
+  },
+  {
+    name: 'Move In/Out',
+    price: 199,
+    period: 'Starting from',
+    features: [
+      'Everything in Deep Clean',
+      'Inside cabinets & drawers',
+      'Closet cleaning',
+      'Wall spot cleaning',
+      'Detailed grout cleaning',
+      'Ceiling fans & vents',
+    ],
+    popular: false,
+  },
+];
+
+const ROOM_SECTIONS = [
+  {
+    title: 'Kitchen Deep Cleaning',
+    description: 'Transform your kitchen into a spotless cooking space. Our professionals tackle grease, grime, and buildup from every surface.',
+    bullets: [
+      'Appliance cleaning inside & out (microwave, oven, refrigerator)',
+      'Cabinet exteriors wiped and polished',
+      'Countertops sanitized and disinfected',
+      'Sink scrubbed and faucet polished',
+      'Floor mopped with professional-grade cleaners',
+    ],
+    image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&h=600&fit=crop',
+  },
+  {
+    title: 'Bathroom Sanitization',
+    description: 'Experience hospital-grade cleanliness in your bathrooms. We eliminate bacteria, mold, and soap scum completely.',
+    bullets: [
+      'Toilet deep cleaned and disinfected',
+      'Shower, tub, and tile thoroughly scrubbed',
+      'Mirrors polished to crystal clarity',
+      'Sink and fixtures sanitized',
+      'Floor mopped and disinfected',
+    ],
+    image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&h=600&fit=crop',
+  },
+  {
+    title: 'Living Areas & Bedrooms',
+    description: 'Create a relaxing environment with our comprehensive room cleaning. Every corner gets attention to detail.',
+    bullets: [
+      'Dusting all furniture, shelves, and decorations',
+      'Vacuum carpets and rugs thoroughly',
+      'Hardwood and tile floors mopped',
+      'Baseboards and windowsills wiped',
+      'Trash emptied and fresh liners',
+    ],
+    image: 'https://images.unsplash.com/photo-1631679706909-1844bbd07221?w=800&h=600&fit=crop',
+  },
+];
+
+const FAQS = [
+  {
+    question: 'What if I\'m not satisfied with the cleaning?',
+    answer: 'We offer a 100% satisfaction guarantee. If you\'re not happy with any aspect of the cleaning, contact us within 24 hours and we\'ll send a cleaner back to make it right at no additional cost.',
+  },
+  {
+    question: 'Do I need to provide cleaning supplies?',
+    answer: 'No! Our professionals bring all necessary cleaning supplies and equipment. We use eco-friendly, professional-grade products. If you have specific products you\'d like us to use, just let us know.',
+  },
+  {
+    question: 'How long does a cleaning take?',
+    answer: 'A standard apartment clean typically takes 2-4 hours depending on size and condition. Deep cleans may take 4-6 hours. We\'ll give you an accurate time estimate when you book.',
+  },
+  {
+    question: 'Are your cleaners background checked?',
+    answer: 'Absolutely. All cleaners undergo thorough background checks, reference verification, and skill assessments. They\'re also fully insured and bonded for your peace of mind.',
+  },
+];
 
 export default function ApartmentCleaning({ navigate }) {
-  const [formData, setFormData] = useState({
-    zipCode: "",
-    beds: "1",
-    baths: "1",
-    date: "",
-    time: "10:00",
-    phone: "",
-    email: "",
-  });
+  const [expandedFaq, setExpandedFaq] = useState(null);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-    alert("Thank you! We'll contact you shortly with a price estimate.");
+  const toggleFaq = (index) => {
+    setExpandedFaq(expandedFaq === index ? null : index);
   };
 
   return (
-    <div className="apartment-cleaning">
+    <div className="ac-page">
       {/* HERO SECTION */}
-      <section className="hero">
-        <div className="hero-image">
-          <img src="/cleaning/cleaning-1.png" alt="Clean apartment" />
-        </div>
-        <div className="hero-overlay">
-          <div className="booking-box">
-            <h1>Apartment Cleaning</h1>
-            <div className="rating">
-              <span className="stars">★★★★★</span>
-              <span className="review-count">(12,847 reviews)</span>
-            </div>
-            
-            <form onSubmit={handleSubmit} className="booking-form">
-              <div className="form-row">
-                <input
-                  type="text"
-                  name="zipCode"
-                  placeholder="ZIP Code"
-                  value={formData.zipCode}
-                  onChange={handleChange}
-                  required
-                />
-                
-                <select name="beds" value={formData.beds} onChange={handleChange} required>
-                  <option value="1">1 Bed</option>
-                  <option value="2">2 Beds</option>
-                  <option value="3">3 Beds</option>
-                  <option value="4">4 Beds</option>
-                  <option value="5">5+ Beds</option>
-                </select>
-                
-                <select name="baths" value={formData.baths} onChange={handleChange} required>
-                  <option value="1">1 Bath</option>
-                  <option value="1.5">1.5 Baths</option>
-                  <option value="2">2 Baths</option>
-                  <option value="2.5">2.5 Baths</option>
-                  <option value="3">3+ Baths</option>
-                </select>
-                
-                <input
-                  type="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleChange}
-                  min={new Date().toISOString().split('T')[0]}
-                  required
-                />
-                
-                <select name="time" value={formData.time} onChange={handleChange} required>
-                  <option value="08:00">8:00 AM</option>
-                  <option value="10:00">10:00 AM</option>
-                  <option value="12:00">12:00 PM</option>
-                  <option value="14:00">2:00 PM</option>
-                  <option value="16:00">4:00 PM</option>
-                </select>
-              </div>
-              
-              <div className="form-row">
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone (optional)"
-                  value={formData.phone}
-                  onChange={handleChange}
-                />
-                
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
-                
-                <button type="submit" className="submit-btn">Get a Price</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      {/* WHAT'S INCLUDED SECTION */}
-      <section className="whats-included">
-        <h2>What's Included in a House Cleaning?</h2>
-        
-        {/* Bedroom */}
-        <div className="included-item">
-          <div className="item-image">
-            <img src="/cleaning/cleaning-1.png" alt="Bedroom cleaning" />
-          </div>
-          <div className="item-content item-content-right">
-            <h3>Bedroom</h3>
-            <ul>
-              <li>Make beds and change linens</li>
-              <li>Dust all surfaces and furniture</li>
-              <li>Vacuum and mop floors</li>
-              <li>Empty trash bins</li>
-              <li>Wipe down mirrors and glass</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Bathroom */}
-        <div className="included-item reverse">
-          <div className="item-image">
-            <img src="/cleaning/cleaning-2.png" alt="Bathroom cleaning" />
-          </div>
-          <div className="item-content item-content-left">
-            <h3>Bathroom</h3>
-            <ul>
-              <li>Scrub and disinfect toilet</li>
-              <li>Clean shower, tub, and tile</li>
-              <li>Wipe down sinks and counters</li>
-              <li>Clean mirrors and fixtures</li>
-              <li>Mop floors and empty trash</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Kitchen */}
-        <div className="included-item">
-          <div className="item-image">
-            <img src="/cleaning/cleaning-3.png" alt="Kitchen cleaning" />
-          </div>
-          <div className="item-content item-content-right">
-            <h3>Kitchen</h3>
-            <ul>
-              <li>Wipe down countertops and backsplash</li>
-              <li>Clean exterior of appliances</li>
-              <li>Clean and shine sink</li>
-              <li>Sweep and mop floors</li>
-              <li>Take out trash and recycling</li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Living Areas */}
-        <div className="included-item reverse">
-          <div className="item-image">
-            <img src="/cleaning/cleaning-1.png" alt="Living room cleaning" />
-          </div>
-          <div className="item-content item-content-left">
-            <h3>Living Areas</h3>
-            <ul>
-              <li>Dust all surfaces and shelves</li>
-              <li>Vacuum carpets and rugs</li>
-              <li>Clean hardwood and tile floors</li>
-              <li>Wipe down light switches and doorknobs</li>
-              <li>Straighten pillows and cushions</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* EXTRAS SECTION */}
-      <section className="extras">
-        <div className="extras-content">
-          <h2>Extras</h2>
-          <p>
-            Need a deeper clean? Our pros can tackle additional tasks for an extra fee.
-            Just let us know what you need when booking.
+      <section className="ac-hero">
+        <div className="ac-container">
+          <h1 className="ac-title">Professional Apartment Cleaning</h1>
+          <p className="ac-subtitle">
+            Top-rated cleaners. Flexible scheduling. Satisfaction guaranteed. 
+            Book online in 60 seconds and enjoy a spotless home.
           </p>
-          <ul>
-            <li>Inside cabinets</li>
-            <li>Inside fridge</li>
-            <li>Inside oven</li>
-            <li>Laundry wash & dry</li>
-            <li>Interior windows</li>
-          </ul>
+          <div className="ac-heroActions">
+            <button className="ac-primaryBtn">Book Now</button>
+            <button className="ac-secondaryBtn">View Pricing</button>
+          </div>
         </div>
       </section>
 
-      {/* CLEANING PROS SECTION */}
-      <section className="cleaning-pros">
-        <h2>Meet Some of the Top Cleaning Pros</h2>
-        <div className="pros-grid">
-          <div className="pro-card">
-            <div className="pro-photo">
-              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" alt="Maria S." />
+      {/* TRUST BADGES */}
+      <section className="ac-badges">
+        <div className="ac-container">
+          <div className="ac-badgeGrid">
+            <div className="ac-badgeItem">
+              <div className="ac-badgeIcon">✓</div>
+              <div>
+                <h4>Background Checked</h4>
+                <p>All cleaners fully vetted</p>
+              </div>
             </div>
-            <h4>Maria S.</h4>
-            <div className="pro-rating">★★★★★</div>
-            <p className="pro-jobs">847 jobs completed</p>
-            <p className="pro-testimonial">
-              "Maria is amazing! Always on time and my apartment looks spotless. Highly recommend!"
-            </p>
+            <div className="ac-badgeItem">
+              <div className="ac-badgeIcon">🛡️</div>
+              <div>
+                <h4>Fully Insured</h4>
+                <p>Protected & bonded service</p>
+              </div>
+            </div>
+            <div className="ac-badgeItem">
+              <div className="ac-badgeIcon">⭐</div>
+              <div>
+                <h4>Top Rated</h4>
+                <p>4.9/5 average rating</p>
+              </div>
+            </div>
+            <div className="ac-badgeItem">
+              <div className="ac-badgeIcon">💯</div>
+              <div>
+                <h4>Satisfaction Guaranteed</h4>
+                <p>We'll make it right</p>
+              </div>
+            </div>
           </div>
+        </div>
+      </section>
 
-          <div className="pro-card">
-            <div className="pro-photo">
-              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80" alt="Linda K." />
-            </div>
-            <h4>Linda K.</h4>
-            <div className="pro-rating">★★★★★</div>
-            <p className="pro-jobs">1,203 jobs completed</p>
-            <p className="pro-testimonial">
-              "Very professional and thorough. Linda pays attention to every detail. Will book again!"
-            </p>
+      {/* PRICING SECTION */}
+      <section className="ac-pricing">
+        <div className="ac-container">
+          <h2 className="ac-sectionTitle">Transparent Pricing</h2>
+          <p className="ac-sectionSubtitle">
+            Choose the cleaning package that fits your needs. All prices include supplies.
+          </p>
+          <div className="ac-pricingGrid">
+            {PRICING_PLANS.map((plan, index) => (
+              <div
+                key={index}
+                className={`ac-priceCard ${plan.popular ? 'ac-popular' : ''}`}
+              >
+                {plan.popular && <div className="ac-popularBadge">Most Popular</div>}
+                <h3>{plan.name}</h3>
+                <div className="ac-priceAmount">
+                  <span className="ac-price">${plan.price}</span>
+                  <span className="ac-period">{plan.period}</span>
+                </div>
+                <ul className="ac-featureList">
+                  {plan.features.map((feature, idx) => (
+                    <li key={idx}>
+                      <span className="ac-check">✓</span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <button className="ac-selectBtn">Select Plan</button>
+              </div>
+            ))}
           </div>
+        </div>
+      </section>
 
-          <div className="pro-card">
-            <div className="pro-photo">
-              <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=400&q=80" alt="Jennifer R." />
+      {/* ROOM SECTIONS - Side by Side */}
+      {ROOM_SECTIONS.map((room, index) => (
+        <section key={index} className="ac-roomSection">
+          <div className={`ac-roomLayout ${index % 2 === 1 ? 'ac-reversed' : ''}`}>
+            <div className="ac-roomImage">
+              <img src={room.image} alt={room.title} />
             </div>
-            <h4>Jennifer R.</h4>
-            <div className="pro-rating">★★★★★</div>
-            <p className="pro-jobs">692 jobs completed</p>
-            <p className="pro-testimonial">
-              "Jennifer is fantastic! She's reliable, friendly, and does an excellent job every time."
-            </p>
+            <div className="ac-roomContent">
+              <div className="ac-roomInner">
+                <h3 className="ac-h3">{room.title}</h3>
+                <p className="ac-text">{room.description}</p>
+                <ul className="ac-checklist">
+                  {room.bullets.map((bullet, idx) => (
+                    <li key={idx}>
+                      <span className="ac-check">✓</span>
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+      ))}
+
+      {/* FAQ SECTION */}
+      <section className="ac-faq">
+        <div className="ac-container">
+          <h2 className="ac-sectionTitle">Frequently Asked Questions</h2>
+          <p className="ac-sectionSubtitle">Everything you need to know about our service</p>
+          <div className="ac-faqList">
+            {FAQS.map((faq, index) => (
+              <div key={index} className="ac-faqItem">
+                <button
+                  className="ac-faqQuestion"
+                  onClick={() => toggleFaq(index)}
+                >
+                  {faq.question}
+                  <span className="ac-faqIcon">
+                    {expandedFaq === index ? '−' : '+'}
+                  </span>
+                </button>
+                {expandedFaq === index && (
+                  <div className="ac-faqAnswer">
+                    <p>{faq.answer}</p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA SECTION */}
+      <section className="ac-cta">
+        <div className="ac-container">
+          <div className="ac-ctaGrid">
+            <div>
+              <h2 className="ac-sectionTitle" style={{ textAlign: 'left' }}>
+                Ready for a Spotless Home?
+              </h2>
+              <p className="ac-sectionSubtitle" style={{ textAlign: 'left' }}>
+                Book your apartment cleaning in just 60 seconds. Same-day and next-day appointments available.
+              </p>
+            </div>
+            <div className="ac-ctaActions">
+              <button className="ac-primaryBtn">Book Your Cleaning</button>
+              <button className="ac-secondaryBtn">Contact Us</button>
+            </div>
           </div>
         </div>
       </section>
